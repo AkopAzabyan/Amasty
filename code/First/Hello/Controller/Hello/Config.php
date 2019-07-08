@@ -9,7 +9,7 @@ class Config extends \Magento\Framework\App\Action\Action
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Mageplaza\HelloWorld\Helper\Data $helperData
+        \First\Hello\Helper\Data $helperData
 
     )
     {
