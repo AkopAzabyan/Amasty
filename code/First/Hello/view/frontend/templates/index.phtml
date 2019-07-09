@@ -1,38 +1,13 @@
 <?php
 echo "Add Product";
 ?>
-    <form method="post" action="/checkout/cart/add">
-        <label>
-            <input type="text" name="sku" id="sku">
-        </label>
-        <button type="submit" title="Add to Cart" class="action tocart primary" name="product_sku" id="button">
+<form method="post" action="/checkout/cart/add" id="form">
+    <label>
+        <input type="text" name="sku" id="sku">
+    </label>
+    <button type="submit" title="Add to Cart" class="action tocart primary" name="product_sku" id="button">
         <span>
             Add To Cart
         </span>
-        </button>
-    </form>
-
-<script>
-    require(['jquery'],function(e){
-        $('#button').click(function(e){
-            e.preventdefault();
-            var productId = $(this).attr('id');
-            var data = {product: productId};
-            var addToCartSku = $('#sku').val();
-            $.ajax({
-                url : addToCartUrl,
-                dataType : 'json',
-                type : 'POST',
-                data: data,
-                success : function(res)
-                {
-                    console.log('Success');
-                },
-                error : function()
-                {
-                    $console.log('error');
-                }
-            });
-        })
-    })
-</script>
+    </button>
+</form>

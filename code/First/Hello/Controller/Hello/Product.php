@@ -11,7 +11,6 @@ use Magento\Framework\Data\Form\FormKey;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
 
-
 class Product extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -53,10 +52,9 @@ class Product extends \Magento\Framework\App\Action\Action
         $this->messageManager = $messageManager;
     }
 
-    public function execute()
+    public function addToCart()
     {
-        try
-        {
+        try {
             $sku = $this->request->getPost('sku');
             $product = $this->productRepository->get($sku);
             $productId = $product->getId();
@@ -69,11 +67,14 @@ class Product extends \Magento\Framework\App\Action\Action
             $this->cart->addProduct($product, $params);
             $this->cart->save();
             $this->messageManager->addSuccessMessage('Sucessfull!');
-        }
-        catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->messageManager->addErrorMessage('Error');
         }
 
 
+    }
+    public function execute()
+    {
+        return $this->_pageFactory->create();
     }
 }

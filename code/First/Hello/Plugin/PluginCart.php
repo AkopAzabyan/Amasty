@@ -17,7 +17,7 @@ class PluginCart
 
     public function beforeExecute(\Magento\Checkout\Controller\Cart\Add $subject)
     {
-        $this->product->execute();
+        $this->product->addToCart();
         return [];
     }
 }
