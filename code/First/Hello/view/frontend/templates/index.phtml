@@ -1,13 +1,18 @@
 <?php
 echo "Add Product";
+/*$productCollection = $block->getProductCollection();
+foreach ($productCollection as $product) {
+    echo "<p>Product name: " . $product->getName() . " (Product ID: " . $product->getId() . ")</p>";
+}*/
 ?>
-<form method="post" action="/checkout/cart/add" id="form">
-    <label>
-        <input type="text" name="sku" id="sku">
-    </label>
-    <button type="submit" title="Add to Cart" class="action tocart primary" name="product_sku" id="button">
+    <form method="post" action="/checkout/cart/add" id="form">
+        <label>
+            <input type="text" name="form_key" id="form_key" hidden>
+            <input type="text" name="sku" id="sku" autocomplete="on">
+        </label>
+        <button type="submit" title="Add to Cart" class="action tocart primary" name="product_sku" id="button">
         <span>
             Add To Cart
         </span>
-    </button>
-</form>
+        </button>
+    </form>
