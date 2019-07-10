@@ -1,9 +1,5 @@
 <?php
 echo "Add Product";
-/*$productCollection = $block->getProductCollection();
-foreach ($productCollection as $product) {
-    echo "<p>Product name: " . $product->getName() . " (Product ID: " . $product->getId() . ")</p>";
-}*/
 ?>
     <form method="post" action="/checkout/cart/add" id="form">
         <label>
@@ -15,4 +11,6 @@ foreach ($productCollection as $product) {
             Add To Cart
         </span>
         </button>
+        <div class="selectList">
+        </div>
     </form>

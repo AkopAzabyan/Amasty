@@ -2,6 +2,7 @@
 
 namespace First\Hello\Controller\Hello;
 
+use Exception;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Checkout\Model\Cart;
@@ -88,7 +89,7 @@ class Product extends \Magento\Framework\App\Action\Action
             $this->cart->addProduct($product, $params);
             $this->cart->save();
             $this->messageManager->addSuccessMessage('Sucessfull!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addErrorMessage('Error');
         }
 
@@ -99,19 +100,28 @@ class Product extends \Magento\Framework\App\Action\Action
     {
         $productCollection = $this->collectionFactory->create();
         $productCollection->addAttributeToSelect('*');
+        $productCollection->setPageSize(3);
         /*$productCollection->addFieldToFilter('sku', ['like' => '%' . $sku . "%"]);
         return $productCollection;*/
-        $productCollection->setPageSize(3);
-        return $productCollection;
+
     }
 
     public function execute()
     {
-        /* $res = $this->resultJsonFactory->create();
-         if (isset($this->getRequest()->getParam('sku'))) {
-             $getParamSku = $this->getRequest()->getParam('sku');
-             $collection = $this->getCollection('sku');
-         }*/
+        $res = $this->resultJsonFactory->create();
+        $arrayProduct = [];
+        if ($this->getRequest()->isAjax()) {
+            $getParamSku = $this->getRequest()->getParam('sku');
+            $collection = $this->collectionFactory->create()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('sku', ["like" => $getParamSku ."%"]);
+            foreach ($collection as $item) {
+                array_push($arrayProduct,$collection->getData());
+            }
+        return $res->setData($arrayProduct);
+        }
+
+
         return $this->_pageFactory->create();
 
     }
