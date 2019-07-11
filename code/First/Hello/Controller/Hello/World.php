@@ -10,9 +10,13 @@ use Magento\Framework\App\Config;
 use Magento\Framework\View\Result\PageFactory;
 
 
+
 class World extends \Magento\Framework\App\Action\Action
 {
     public $_pageFactory;
+    /**
+     * @var
+     */
 
 
     public function __construct(
@@ -20,6 +24,7 @@ class World extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory
     )
     {
+
         $this->_pageFactory = $pageFactory;
 
         return parent::__construct($context);

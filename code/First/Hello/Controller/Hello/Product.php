@@ -12,7 +12,7 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-
+use Magento\Catalog\Helper\Image;
 
 class Product extends \Magento\Framework\App\Action\Action
 {
@@ -50,8 +50,13 @@ class Product extends \Magento\Framework\App\Action\Action
      * @var JsonFactory
      */
     private $resultJsonFactory;
+    /**
+     * @var Image
+     */
+    private $image;
 
     public function __construct(
+        Image $image,
         JsonFactory $resultJsonFactory,
         CollectionFactory $collectionFactory,
         ManagerInterface $messageManager,
@@ -72,6 +77,7 @@ class Product extends \Magento\Framework\App\Action\Action
         $this->collectionFactory = $collectionFactory;
         $this->resultJsonFactory = $resultJsonFactory;
         parent::__construct($context);
+        $this->image = $image;
     }
 
     public function addToCart()
@@ -114,11 +120,16 @@ class Product extends \Magento\Framework\App\Action\Action
             $getParamSku = $this->getRequest()->getParam('sku');
             $collection = $this->collectionFactory->create()
                 ->addAttributeToSelect('*')
-                ->addAttributeToFilter('sku', ["like" => $getParamSku ."%"]);
-            foreach ($collection as $item) {
-                array_push($arrayProduct,$collection->getData());
+                ->addAttributeToFilter('sku', ["like" => $getParamSku . "%"]);
+            foreach ($collection as $product) {
+                $imageUrl = $this->image
+                    ->init($product, 'product_page_image_large')
+                    ->getUrl();
+                $product->setImage($imageUrl);
+                array_push($arrayProduct, $product->getData());
             }
-        return $res->setData($arrayProduct);
+
+            return $res->setData($arrayProduct);
         }
 
 

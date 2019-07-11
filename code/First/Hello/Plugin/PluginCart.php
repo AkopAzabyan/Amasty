@@ -6,12 +6,18 @@ use First\Hello\Controller\Hello\Product;
 
 class PluginCart
 {
-    public $product;
+
+
+    /**
+     * @var Product
+     */
+    private $product;
 
     public function __construct(
         Product $product
     )
     {
+
         $this->product = $product;
     }
 
