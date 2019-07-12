@@ -4,4 +4,20 @@
     <type name="Magento\Checkout\Controller\Cart\Add">
         <plugin name="PluginCart" type="First\Hello\Plugin\PluginCart" sortOrder="5"/>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="firsthello_post_listing_data_source" xsi:type="string">
+                    First\Hello\Model\ResourceModel\Post\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="First\Hello\Model\ResourceModel\Post\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">firsthello_post</argument>
+            <argument name="resourceModel" xsi:type="string">First\Hello\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
 </config>

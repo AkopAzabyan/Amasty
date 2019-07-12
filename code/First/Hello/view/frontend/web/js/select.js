@@ -13,7 +13,7 @@ require(["jquery", "mage/template"], function ($, template) {
                     success: function (data) {
                         var val = JSON.parse(data);
                         console.log(val);
-                        $('.selectList').show('fast').html('');
+                        $('#employee').show('fast').html('');
                         $.each(val, function () {
                             var src = '/pub/media/catalog/product';
                             var employeeTemplate = template('#employee-template');
@@ -26,13 +26,13 @@ require(["jquery", "mage/template"], function ($, template) {
                             });
                             $('#employee').append(employee);
                         });
-                        /*var src = '/pub/media/catalog/product/' + value.image;
-                        $('.selectList').append('<li><p>' + value.name + '</p></li>' + '<li><p>' + value.sku + '</p></li>' + '<li><p><img src=' + src + '></p></li>');*/
+                        $('#employee').on('click', function () {
+                            var sku = $('#skuId').text();
+                            $('#sku').val(sku);
+                            $('#employee').hide('fast');
+                        });
                     }
-                    /* $('.selectList li').on('click', function () {
-                         $('#sku').val();
-                         $('.selectList').hide('fast');
-                     });*/
+
                 });
             }
         });

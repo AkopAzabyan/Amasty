@@ -46,10 +46,12 @@ class Product extends \Magento\Framework\App\Action\Action
      * @var CollectionFactory
      */
     private $collectionFactory;
+
     /**
      * @var JsonFactory
      */
     private $resultJsonFactory;
+
     /**
      * @var Image
      */
@@ -65,8 +67,8 @@ class Product extends \Magento\Framework\App\Action\Action
         Cart $cart,
         Http $request,
         ProductRepositoryInterface $productRepository,
-        array $data = [])
-    {
+        array $data = []
+    ) {
 
         $this->formKey = $formKey;
         $this->cart = $cart;
@@ -98,20 +100,11 @@ class Product extends \Magento\Framework\App\Action\Action
         } catch (Exception $e) {
             $this->messageManager->addErrorMessage('Error');
         }
-
-
     }
 
-    public function getCollection($sku)
-    {
-        $productCollection = $this->collectionFactory->create();
-        $productCollection->addAttributeToSelect('*');
-        $productCollection->setPageSize(3);
-        /*$productCollection->addFieldToFilter('sku', ['like' => '%' . $sku . "%"]);
-        return $productCollection;*/
-
-    }
-
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $res = $this->resultJsonFactory->create();
@@ -122,18 +115,13 @@ class Product extends \Magento\Framework\App\Action\Action
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('sku', ["like" => $getParamSku . "%"]);
             foreach ($collection as $product) {
-                $imageUrl = $this->image
-                    ->init($product, 'product_page_image_large')
-                    ->getUrl();
+                $imageUrl = $this->image->init($product, 'product_page_image_medium')->getUrl();
                 $product->setImage($imageUrl);
                 array_push($arrayProduct, $product->getData());
             }
 
             return $res->setData($arrayProduct);
         }
-
-
         return $this->_pageFactory->create();
-
     }
 }

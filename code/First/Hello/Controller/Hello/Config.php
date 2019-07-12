@@ -1,27 +1,33 @@
 <?php
-namespace Mageplaza\HelloWorld\Controller\Index;
+namespace First\Hello\Controller\Hello;
 
+use Magento\Framework\App\Action\Context;
+use First\Hello\Helper\Data;
 
 class Config extends \Magento\Framework\App\Action\Action
 {
 
-    protected $helperData;
+    private $helperData;
 
+    /**
+     * Config constructor.
+     * @param Context $context
+     * @param Data $helperData
+     */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
-        \First\Hello\Helper\Data $helperData
+        Context $context,
+        Data $helperData
 
-    )
-    {
+    ) {
         $this->helperData = $helperData;
         return parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void
+     */
     public function execute()
     {
-
-        // TODO: Implement execute() method.
-
         echo $this->helperData->getGeneralConfig('enable');
         echo $this->helperData->getGeneralConfig('display_text');
         exit();

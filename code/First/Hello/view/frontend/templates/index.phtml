@@ -12,25 +12,29 @@ echo "Add Product";
             Add To Cart
         </span>
     </button>
-    <input type="file" height="200px" width="200px" name="button">
-    <div class="selectList">
-    </div>
-    <div class="skuProduct">
-    </div>
-    <div id="employee">
-
-    </div>
+</form>
+<form method="post" action="/firsthello/hello/world" enctype="multipart/form-data">
+    <input type="file" height="200px" width="200px" name="importCsv">
+    <button type="submit" title="Add to Csv" class="action tocart primary" id="csv">
+        <span>
+            Add Csv
+        </span>
+    </button>
 </form>
 <script id="employee-template" type="text/x-magento-template">
     <ul>
-        <li>
-            sku : <%- data.sku %>
+        <li id="skuId">
+            <%- data.sku %>
         </li>
         <li>
-             Name : <%- data.name %>
+            Name : <%- data.name %>
         </li>
         <li>
-            <img src=" <%- data.img %>" />
+            <img src="<%- data.img %>"/>
         </li>
     </ul>
 </script>
+<div id="employee">
+
+</div>
+
